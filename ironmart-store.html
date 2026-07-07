@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgeX — Pro Grade Hardware</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --paper:#fafafa;
+    --paper-dim:#f5f5f5;
+    --steel:#3a3a3a;
+    --steel-dark:#1d2226;
+    --orange:#ff6b35;
+    --orange-dark:#e55a2b;
+    --orange-light:#ffb100;
+    --green:#2ecc71;
+    --red:#e74c3c;
+    --border:#ddd;
+    --shadow:0 2px 8px rgba(0,0,0,0.1);
+    --shadow-lg:0 8px 24px rgba(0,0,0,0.15);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.brand{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin:0;
+    font-weight:700;
+  }
+  h2{font-size:28px;margin-bottom:8px;}
+  #app{max-width:1200px;margin:0 auto;padding-bottom:60px;}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    background:linear-gradient(135deg, var(--steel-dark) 0%, #0f1419 100%);
+    color:var(--paper);
+    border-bottom:4px solid var(--orange);
+    box-shadow:var(--shadow-lg);
+  }
+  header .brand{font-size:28px;color:var(--paper);cursor:pointer;letter-spacing:0.08em;}
+  header .brand span{color:var(--orange);font-size:32px;}
+  nav{display:flex;gap:16px;align-items:center;}
+  nav button{
+    background:transparent;border:2px solid rgba(242,236,224,0.5);color:var(--paper);
+    padding:10px 18px;border-radius:6px;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;
+    text-transform:uppercase;letter-spacing:0.05em;font-weight:600;
+    transition:all 0.3s ease;
+  }
+  nav button:hover{
+    background:var(--orange);border-color:var(--orange);color:white;transform:translateY(-2px);
+  }
+  nav button.cart-btn{border-color:var(--orange);color:var(--orange);font-weight:700;}
+  nav button.cart-btn:hover{background:var(--orange);color:white;}
+
+  main{padding:40px 32px;}
+  .section-title{
+    font-size:26px;margin-bottom:12px;
+    border-left:6px solid var(--orange);padding-left:16px;
+    color:var(--steel-dark);
+  }
+  .subtle{color:#666;font-size:15px;margin:0 0 28px 16px;}
+
+  .hero{
+    background:linear-gradient(135deg, var(--steel-dark) 0%, #252d34 50%, var(--orange) 100%);
+    color:white;
+    padding:60px 32px;border-radius:12px;margin-bottom:48px;
+    text-align:center;box-shadow:var(--shadow-lg);
+  }
+  .hero h1{font-size:42px;margin-bottom:12px;}
+  .hero p{font-size:18px;opacity:0.9;max-width:600px;margin:0 auto;}
+
+  .card{
+    background:white;border:1px solid var(--border);border-radius:8px;padding:24px;
+    box-shadow:var(--shadow);
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px;}
+  .product {
+    background:white;border:1px solid var(--border);border-radius:10px;padding:16px;
+    display:flex;flex-direction:column;gap:12px;
+    transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow:var(--shadow);
+    cursor:pointer;
+  }
+  .product:hover{
+    transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--orange);
+  }
+  .product-image{
+    width:100%;height:160px;object-fit:cover;border-radius:8px;background:linear-gradient(135deg,#f5f5f5,#e8e8e8);
+    display:flex;align-items:center;justify-content:center;font-size:64px;
+    border:2px solid #f0f0f0;
+  }
+  .product .cat{
+    font-size:11px;text-transform:uppercase;letter-spacing:0.06em;
+    color:white;font-weight:700;
+    background:var(--orange);padding:4px 10px;border-radius:6px;width:fit-content;
+  }
+  .product .name{font-size:16px;font-weight:700;color:var(--steel-dark);}
+  .product .price{
+    font-size:20px;font-family:'Oswald',sans-serif;color:var(--orange);font-weight:700;
+  }
+  .product .rating-section{display:flex;justify-content:space-between;align-items:center;margin:8px 0;}
+  .product .stock-info{font-size:12px;color:#666;font-weight:600;}
+  .btn{
+    background:linear-gradient(135deg, var(--steel-dark) 0%, #2a3238 100%);
+    color:white;border:none;padding:12px 20px;border-radius:8px;
+    cursor:pointer;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;
+    transition:all 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  }
+  .btn:hover{
+    transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,0.2);
+    background:linear-gradient(135deg, #242b32 0%, #1a2128 100%);
+  }
+  .btn.orange{
+    background:linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+    box-shadow:0 4px 12px rgba(255,107,53,0.3);
+  }
+  .btn.orange:hover{
+    background:linear-gradient(135deg, var(--orange-dark) 0%, #d94a20 100%);
+    box-shadow:0 6px 16px rgba(255,107,53,0.4);
+  }
+  .btn.outline{
+    background:transparent;border:2px solid var(--steel-dark);color:var(--steel-dark);
+    box-shadow:none;
+  }
+  .btn.outline:hover{
+    background:var(--steel-dark);color:white;
+  }
+  .btn.small{padding:8px 14px;font-size:12px;}
+  .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+  input,select{
+    width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:8px;
+    font-family:'Inter',sans-serif;font-size:14px;background:white;color:var(--ink);
+    margin-bottom:12px;transition:all 0.3s ease;
+  }
+  input:focus,select:focus{
+    outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,107,53,0.1);
+  }
+  label{font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--steel);display:block;margin-bottom:6px;font-weight:600;}
+
+  .auth-box{max-width:380px;margin:0 auto;}
+  .switch-line{text-align:center;font-size:13px;margin-top:14px;color:var(--steel);}
+  .switch-line a{color:var(--orange-dark);cursor:pointer;text-decoration:underline;}
+
+  .cart-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
+  .cart-row:last-child{border-bottom:none;}
+  .qty-controls{display:flex;align-items:center;gap:8px;}
+  .qty-controls button{width:26px;height:26px;border-radius:50%;border:1px solid var(--steel-dark);background:none;cursor:pointer;}
+  .totals-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;}
+  .totals-row.grand{font-size:18px;font-family:'Oswald',sans-serif;border-top:2px solid var(--ink);margin-top:8px;padding-top:12px;}
+
+  .ticket{
+    display:flex;justify-content:space-between;align-items:center;position:relative;margin:24px 0 8px;
+  }
+  .ticket::before{
+    content:'';position:absolute;top:14px;left:6%;right:6%;height:3px;
+    background:repeating-linear-gradient(90deg,var(--border) 0 8px,transparent 8px 14px);
+    z-index:0;
+  }
+  .stage{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+  .stamp{
+    width:30px;height:30px;border-radius:50%;border:3px solid var(--border);background:var(--paper);
+    display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--border);
+  }
+  .stamp.done{border-color:var(--green);color:var(--green);background:#eaf3ea;font-weight:700;}
+  .stamp.current{border-color:var(--orange);color:var(--orange-dark);background:#fbe7d8;}
+  .stage-label{font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--steel);text-align:center;}
+
+  .order-card{border:1px solid var(--border);border-radius:6px;padding:16px;margin-bottom:16px;background:#fffdf8;}
+  .order-head{display:flex;justify-content:space-between;font-size:13px;color:var(--steel);border-bottom:1px dashed var(--border);padding-bottom:10px;margin-bottom:6px;}
+  .badge{padding:3px 10px;border-radius:12px;font-size:11px;text-transform:uppercase;font-weight:600;letter-spacing:0.03em;}
+  .badge.placed{background:#f0e2c8;color:var(--orange-dark);}
+  .badge.shipped{background:#dbe6ee;color:#2b5678;}
+  .badge.delivered{background:#dcecdc;color:var(--green);}
+
+  .empty{text-align:center;color:var(--steel);padding:60px 20px;}
+  .pay-methods{display:flex;gap:10px;margin-bottom:16px;}
+  .pay-methods label.method{
+    flex:1;border:1px solid var(--border);border-radius:4px;padding:10px;text-align:center;cursor:pointer;
+    text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);display:flex;gap:6px;align-items:center;justify-content:center;
+  }
+  .pay-methods input{width:auto;margin:0;}
+  .pay-methods label.active{border-color:var(--orange);background:#fbe7d8;}
+  .confirm-box{text-align:center;padding:40px 20px;}
+  .confirm-box .stamp-big{
+    width:70px;height:70px;border-radius:50%;border:4px solid var(--green);color:var(--green);
+    display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 14px;
+  }
+  footer.role-toggle{text-align:center;padding:10px;font-size:12px;color:var(--steel);}
+  footer.role-toggle a{color:var(--orange-dark);cursor:pointer;}
+
+  .stars{display:flex;align-items:center;gap:4px;font-size:13px;}
+  .star{color:#ffc107;}
+  .reviews-count{color:var(--steel);font-size:12px;}
+  .stock-badge{font-size:12px;padding:4px 8px;border-radius:12px;font-weight:600;}
+  .stock-badge.low{background:#ffe0e0;color:#c33;}
+  .stock-badge.medium{background:#fff4e0;color:#a84;} 
+  .stock-badge.high{background:#e0ffe0;color:#3a3;}
+
+  .search-filter{display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap;align-items:center;background:white;padding:20px;border-radius:10px;box-shadow:var(--shadow);}
+  .search-filter input{flex:1;min-width:220px;margin-bottom:0;}
+  .search-filter select{flex:0 1 180px;margin-bottom:0;}
+  .wishlist-btn{
+    background:white;border:2px solid var(--border);color:var(--ink);
+    width:44px;height:44px;border-radius:8px;cursor:pointer;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+    transition:all 0.3s ease;
+  }
+  .wishlist-btn:hover{border-color:var(--orange);color:var(--orange);}
+  .wishlist-btn.active{background:var(--orange);color:white;border-color:var(--orange);}
+
+  footer{
+    background:linear-gradient(135deg, var(--steel-dark) 0%, #0f1419 100%);
+    color:var(--paper);padding:60px 32px 30px;margin-top:80px;
+  }
+  .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;margin-bottom:30px;}
+  .footer-col h3{
+    font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.05em;
+    margin-bottom:16px;font-size:14px;color:var(--orange);font-weight:700;
+  }
+  .footer-col p,.footer-col a{
+    font-size:13px;color:rgba(242,236,224,0.7);margin:8px 0;display:block;
+    cursor:pointer;text-decoration:none;transition:0.3s ease;
+  }
+  .footer-col a:hover{color:var(--orange);transform:translateX(4px);}
+  .footer-bottom{
+    border-top:1px solid rgba(242,236,224,0.2);padding-top:24px;
+    text-align:center;font-size:12px;color:rgba(242,236,224,0.5);
+  }
+
+  .stock-badge{font-size:12px;padding:6px 12px;border-radius:8px;font-weight:700;display:inline-block;}
+  .stock-badge.low{background:#ffe0e0;color:#c33;}
+  .stock-badge.medium{background:#fff4e0;color:#a84;} 
+  .stock-badge.high{background:#e0ffe0;color:#3a3;}
+
+  .toast{
+    padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14px;
+    animation:slideDown 0.3s ease;box-shadow:var(--shadow-lg);font-weight:600;
+  }
+  .toast.success{background:#d4edda;border:1px solid #28a745;color:#155724;}
+  .toast.error{background:#f8d7da;border:1px solid #f5c6cb;color:#721c24;}
+  .toast.info{background:#d1ecf1;border:1px solid #bee5eb;color:#0c5460;}
+  @keyframes slideDown{from{transform:translateY(-20px);opacity:0;} to{transform:translateY(0);opacity:1;}}
+
+  @media(max-width:768px){
+    .search-filter{flex-direction:column;}
+    .search-filter input{min-width:100%;}
+    .footer-grid{grid-template-columns:1fr;}
+    .product-detail-actions{flex-direction:column;}
+    .product-modal-content{width:95%;max-height:80vh;}
+  }
+
+  .admin-panel{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:24px 0;}
+  .admin-form{
+    background:white;border:1px solid var(--border);border-radius:10px;padding:28px;
+    box-shadow:var(--shadow);
+  }
+  .admin-form h3{margin-bottom:24px;color:var(--steel-dark);}
+  .admin-products{
+    background:white;border:1px solid var(--border);border-radius:10px;padding:28px;
+    box-shadow:var(--shadow);
+  }
+  .admin-product-row{
+    display:flex;justify-content:space-between;align-items:center;padding:16px;
+    border-bottom:1px solid var(--paper-dim);gap:12px;
+    transition:all 0.3s ease;border-radius:6px;
+  }
+  .admin-product-row:hover{background:var(--paper-dim);}
+  .admin-product-row:last-child{border-bottom:none;}
+  .admin-product-info{flex:1;}
+  .admin-product-name{font-weight:700;margin-bottom:6px;color:var(--steel-dark);}
+  .admin-product-meta{font-size:12px;color:#888;}
+  .admin-actions{display:flex;gap:8px;}
+  .btn.small-admin{padding:6px 12px;font-size:11px;}
+  .admin-login{max-width:320px;margin:80px auto;background:white;padding:40px;border-radius:12px;box-shadow:var(--shadow-lg);}
+  .admin-login h2{text-align:center;margin-bottom:24px;}
+  .admin-login input{margin-bottom:16px;}
+  .admin-login .btn{width:100%;margin-top:12px;}
+  .demo-hint{text-align:center;font-size:12px;color:#666;margin-top:16px;padding:12px;background:var(--paper-dim);border-radius:6px;}
+
+  .product-modal{
+    display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;
+  }
+  .product-modal.show{display:flex;}
+  .product-modal-content{
+    background:white;border-radius:12px;max-width:640px;width:90%;max-height:90vh;
+    overflow-y:auto;padding:32px;position:relative;box-shadow:var(--shadow-lg);
+  }
+  .product-modal-close{
+    position:absolute;top:16px;right:16px;background:none;border:none;font-size:28px;
+    cursor:pointer;color:#999;transition:0.3s ease;
+  }
+  .product-modal-close:hover{color:var(--orange);}
+  .product-detail{display:flex;flex-direction:column;gap:20px;}
+  .product-detail-header{display:flex;align-items:center;gap:20px;}
+  .product-detail-image{
+    font-size:100px;text-align:center;
+    background:linear-gradient(135deg,#f5f5f5,#e8e8e8);
+    padding:40px;border-radius:10px;width:200px;height:200px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .product-detail-info{flex:1;}
+  .product-detail-price{font-size:32px;font-family:'Oswald',sans-serif;color:var(--orange);font-weight:700;}
+  .product-detail-desc{color:#666;line-height:1.8;margin:12px 0;}
+  .product-detail-actions{display:flex;gap:12px;margin-top:20px;}
+  .product-detail-actions button{flex:1;}
+
+  .error-text{color:var(--red);font-size:12px;margin-top:-8px;margin-bottom:8px;display:block;font-weight:600;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-row input, .form-row select{margin-bottom:0;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="products.js"></script>
+<script>
+const SELLER = {email:'seller@ironmart.com', password:'seller123'};
+
+let state = {
+  view:'products',
+  authMode:'login',
+  user:null,
+  isSeller:false,
+  isAdmin:false,
+  cart:[],
+  orders:[],
+  toast:null,
+  checkoutAddress:{name:'',phone:'',address:'',city:''},
+  payMethod:'cod',
+  lastOrderId:null,
+  wishlist:[],
+  searchQuery:'',
+  selectedCategory:'all',
+  selectedProduct:null,
+  toastType:'success', // 'success', 'error', 'info'
+  allProducts:[],
+  editingProduct:null,
+};
+
+async function safeGet(key, shared){
+  try{ 
+    // Try custom storage API first, then fallback to localStorage
+    if(window.storage && window.storage.get) { 
+      const r = await window.storage.get(key, shared); 
+      return r ? JSON.parse(r.value) : null; 
+    }
+    // Fallback to localStorage
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  }
+  catch(e){ console.error('storage get error:', e); return null; }
+}
+async function safeSet(key, value, shared){
+  try{ 
+    // Try custom storage API first, then fallback to localStorage
+    if(window.storage && window.storage.set) { 
+      await window.storage.set(key, JSON.stringify(value), shared); 
+    } else {
+      // Fallback to localStorage
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+  catch(e){ console.error('storage set failed:', e); }
+}
+
+async function getUsers(){ return (await safeGet('users', true)) || {}; }
+async function saveUsers(u){ await safeSet('users', u, true); }
+async function getOrders(){ return (await safeGet('orders', true)) || []; }
+async function saveOrders(o){ await safeSet('orders', o, true); state.orders = o; }
+async function getCart(email){ return (await safeGet('cart:'+email, true)) || []; }
+async function saveCart(email, cart){ await safeSet('cart:'+email, cart, true); state.cart = cart; }
+async function getProducts(){ return (await safeGet('products', true)) || PRODUCTS; }
+async function saveProducts(p){ await safeSet('products', p, true); }
+async function loadProducts(){
+  const saved = (await safeGet('products', true)) || [];
+  const seedIds = new Set(PRODUCTS.map(p => p.id));
+  // Always use latest catalog from products.js for seed IDs (p1–p60)
+  const custom = saved.filter(p => !seedIds.has(p.id));
+  const merged = [...PRODUCTS, ...custom];
+  await saveProducts(merged);
+  return merged;
+}
+
+function fmt(n){ return 'Rs. ' + n.toLocaleString('en-PK'); }
+
+function isImageUrl(v){
+  v = (v || '').trim();
+  if(!v) return false;
+  if(/^https?:\/\//i.test(v)) return true;
+  if(v.startsWith('//')) return true;
+  if(/^www\./i.test(v)) return true;
+  return /\.(jpg|jpeg|png|gif|webp|svg|avif)(\?.*)?$/i.test(v);
+}
+function imageSrc(v){
+  v = (v || '').trim();
+  if(/^https?:\/\//i.test(v)) return v;
+  if(v.startsWith('//')) return 'https:' + v;
+  if(/^www\./i.test(v) || isImageUrl(v)) return 'https://' + v.replace(/^\/+/, '');
+  return v;
+}
+function productImageHtml(p, className, style){
+  if(isImageUrl(p.image)){
+    return `<img src="${imageSrc(p.image)}" class="${className||'product-image'}" style="${style||''}" onerror="this.onerror=null;this.outerHTML='<div class=\\'product-image\\'>📦</div>'" alt="${p.name}">`;
+  }
+  return `<div class="${className||'product-image'}">${p.image}</div>`;
+}
+
+function validateEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function validatePhone(p){ return /^(\+92|0)[0-9]{10}$/.test(p.replace(/[-\s]/g,'')); }
+function validateName(n){ return n.trim().length >= 2; }
+function validatePassword(p){ return p.length >= 6; }
+
+function showToast(msg, type='success'){
+  state.toast = msg;
+  state.toastType = type;
+  render();
+  setTimeout(()=>{ state.toast=null; render(); }, 4000);
+}
+function cartTotal(){
+  return state.cart.reduce((sum,item)=>{
+    const p = state.allProducts.find(x=>x.id===item.id);
+    return sum + (p ? p.price*item.qty : 0);
+  },0);
+}
+function cartCount(){ return state.cart.reduce((s,i)=>s+i.qty,0); }
+
+function setView(v){ state.view = v; state.selectedProduct = null; render(); }
+
+function getCategories(){
+  const cats = [...new Set(PRODUCTS.map(p=>p.cat))];
+  return ['all', ...cats.sort()];
+}
+
+function getFilteredProducts(){
+  let filtered = state.allProducts;
+  if(state.selectedCategory !== 'all'){
+    filtered = filtered.filter(p=>p.cat === state.selectedCategory);
+  }
+  if(state.searchQuery.trim()){
+    const q = state.searchQuery.toLowerCase();
+    filtered = filtered.filter(p=>p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+  }
+  return filtered;
+}
+
+function starRating(rating){
+  const full = Math.floor(rating);
+  const half = rating % 1 !== 0;
+  let html = '';
+  for(let i=0;i<5;i++){
+    if(i<full) html += '<span class="star">★</span>';
+    else if(i===full && half) html += '<span class="star">⯨</span>';
+    else html += '<span style="color:#ddd;">★</span>';
+  }
+  return html;
+}
+
+function getStockBadge(stock){
+  if(stock <= 5) return `<span class="stock-badge low">Low stock (${stock})</span>`;
+  if(stock <= 20) return `<span class="stock-badge medium">${stock} left</span>`;
+  return `<span class="stock-badge high">In stock</span>`;
+}
+
+// Admin Functions
+const ADMIN_PASS = 'admin123';
+function loginAdmin(){
+  const pass = document.getElementById('admin-pass').value;
+  if(pass === ADMIN_PASS){
+    state.isAdmin = true;
+    showToast('Admin mode activated!', 'success');
+    setView('admin');
+  } else {
+    showToast('Incorrect admin password.', 'error');
+  }
+}
+
+function logoutAdmin(){
+  state.isAdmin = false;
+  setView('products');
+}
+
+async function addProduct(){
+  const name = document.getElementById('ap-name').value.trim();
+  const price = parseInt(document.getElementById('ap-price').value);
+  const cat = document.getElementById('ap-cat').value;
+  const stock = parseInt(document.getElementById('ap-stock').value);
+  const rating = parseFloat(document.getElementById('ap-rating').value);
+  const reviews = parseInt(document.getElementById('ap-reviews').value);
+  const desc = document.getElementById('ap-desc').value.trim();
+  const image = document.getElementById('ap-image').value.trim();
+  
+  if(!name || !price || !cat || !stock || !rating || !reviews || !desc || !image){
+    showToast('Please fill all fields.', 'error');
+    return;
+  }
+  
+  const newId = 'p' + (Math.max(...state.allProducts.map(p=>parseInt(p.id.slice(1)))) + 1);
+  const newProduct = {id:newId, name, price, cat, stock, rating, reviews, desc, image};
+  
+  state.allProducts.push(newProduct);
+  await saveProducts(state.allProducts);
+  
+  // Clear form
+  document.getElementById('ap-name').value = '';
+  document.getElementById('ap-price').value = '';
+  document.getElementById('ap-stock').value = '';
+  document.getElementById('ap-rating').value = '4.5';
+  document.getElementById('ap-reviews').value = '';
+  document.getElementById('ap-desc').value = '';
+  document.getElementById('ap-image').value = '';
+  
+  showToast(`Product "${name}" added successfully!`, 'success');
+  render();
+}
+
+async function deleteProduct(id){
+  if(!confirm('Delete this product?')) return;
+  state.allProducts = state.allProducts.filter(p=>p.id !== id);
+  await saveProducts(state.allProducts);
+  showToast('Product deleted.', 'success');
+  render();
+}
+
+function editProduct(id){
+  const product = state.allProducts.find(p=>p.id === id);
+  if(product){
+    document.getElementById('ap-name').value = product.name;
+    document.getElementById('ap-price').value = product.price;
+    document.getElementById('ap-cat').value = product.cat;
+    document.getElementById('ap-stock').value = product.stock;
+    document.getElementById('ap-rating').value = product.rating;
+    document.getElementById('ap-reviews').value = product.reviews;
+    document.getElementById('ap-desc').value = product.desc;
+    document.getElementById('ap-image').value = product.image;
+    state.editingProduct = id;
+    document.getElementById('ap-submit').textContent = 'Update Product';
+    document.getElementById('ap-submit').onclick = ()=>updateProduct(id);
+  }
+}
+
+async function updateProduct(id){
+  const name = document.getElementById('ap-name').value.trim();
+  const price = parseInt(document.getElementById('ap-price').value);
+  const cat = document.getElementById('ap-cat').value;
+  const stock = parseInt(document.getElementById('ap-stock').value);
+  const rating = parseFloat(document.getElementById('ap-rating').value);
+  const reviews = parseInt(document.getElementById('ap-reviews').value);
+  const desc = document.getElementById('ap-desc').value.trim();
+  const image = document.getElementById('ap-image').value.trim();
+  
+  const idx = state.allProducts.findIndex(p=>p.id === id);
+  if(idx >= 0){
+    state.allProducts[idx] = {id, name, price, cat, stock, rating, reviews, desc, image};
+    await saveProducts(state.allProducts);
+    
+    document.getElementById('ap-name').value = '';
+    document.getElementById('ap-price').value = '';
+    document.getElementById('ap-stock').value = '';
+    document.getElementById('ap-rating').value = '4.5';
+    document.getElementById('ap-reviews').value = '';
+    document.getElementById('ap-desc').value = '';
+    document.getElementById('ap-image').value = '';
+    document.getElementById('ap-submit').textContent = 'Add Product';
+    document.getElementById('ap-submit').onclick = addProduct;
+    state.editingProduct = null;
+    
+    showToast(`Product updated!`, 'success');
+    render();
+  }
+}
+
+function cancelEdit(){
+  document.getElementById('ap-name').value = '';
+  document.getElementById('ap-price').value = '';
+  document.getElementById('ap-stock').value = '';
+  document.getElementById('ap-rating').value = '4.5';
+  document.getElementById('ap-reviews').value = '';
+  document.getElementById('ap-desc').value = '';
+  document.getElementById('ap-image').value = '';
+  document.getElementById('ap-submit').textContent = 'Add Product';
+  document.getElementById('ap-submit').onclick = addProduct;
+  state.editingProduct = null;
+  render();
+}
+
+function header(){
+  const loggedIn = state.user || state.isSeller;
+  return `
+  <header>
+    <div class="brand" onclick="setView('products')">Iron<span>Mart</span></div>
+    <nav>
+      <button onclick="setView('products');state.selectedCategory='all';state.searchQuery='';render();">Shop</button>
+      ${state.isAdmin ? `
+        <button onclick="setView('admin')" style="border-color:var(--orange);color:var(--orange);">Admin</button>
+        <button onclick="logoutAdmin()">Exit Admin</button>
+      ` : state.isSeller ? `
+        <button onclick="setView('sellerdash')">Orders</button>
+        <button onclick="logout()">Logout</button>
+      ` : `
+        ${state.user ? `<button onclick="setView('myorders')">My Orders</button>` : ''}
+        <button class="cart-btn" onclick="goCart()">Cart (${cartCount()})</button>
+        ${state.user ? `<button onclick="logout()">Logout</button>` : `<button onclick="setView('auth')">Login</button>`}
+        ${!state.user && !state.isSeller ? `<button onclick="setView('adminlogin')" style="font-size:11px;padding:6px 10px;">🔧</button>` : ''}
+      `}
+    </nav>
+  </header>`;
+}
+
+function roleFooter(){
+  if(state.isSeller || state.view==='sellerlogin') return '';
+  return `<footer class="role-toggle">Store owner? <a onclick="setView('sellerlogin')">Seller login</a></footer>`;
+}
+
+function toastHtml(){
+  if(!state.toast) return '';
+  return `<div class="toast ${state.toastType}">${state.toast}</div>`;
+}
+
+function productsView(){
+  const products = getFilteredProducts();
+  const categories = getCategories();
+  return `
+  <h2 class="section-title">Browse products</h2>
+  <p class="subtle">Everything for the workshop, the toolbox, and the job site.</p>
+  ${toastHtml()}
+  <div class="search-filter">
+    <input type="text" id="search-box" placeholder="Search products..." value="${state.searchQuery}" onkeyup="state.searchQuery=this.value;render();" style="flex:1;min-width:200px;">
+    <select id="cat-filter" onchange="state.selectedCategory=this.value;render();" style="flex:0 1 160px;">
+      ${categories.map(c=>`<option value="${c}" ${state.selectedCategory===c?'selected':''}>${c.charAt(0).toUpperCase()+c.slice(1)}</option>`).join('')}
+    </select>
+  </div>
+  ${products.length === 0 ? `
+    <div class="empty">No products found. Try adjusting your search or filters.</div>
+  ` : `
+    <div class="grid">
+      ${products.map(p=>`
+        <div class="product">
+          ${productImageHtml(p)}
+          <div class="cat">${p.cat}</div>
+          <div class="name">${p.name}</div>
+          <div class="stars">${starRating(p.rating)}<span style="margin-left:4px;">${p.rating}</span><span class="reviews-count">(${p.reviews})</span></div>
+          <div style="margin:4px 0;">${getStockBadge(p.stock)}</div>
+          <div class="price">${fmt(p.price)}</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn orange small" style="flex:1;" onclick="addToCart('${p.id}')">Add to cart</button>
+            <button class="wishlist-btn ${state.wishlist.includes(p.id)?'active':''}" onclick="toggleWishlist('${p.id}')">❤</button>
+          </div>
+          <button class="btn outline small" style="width:100%;margin-top:6px;" onclick="viewProduct('${p.id}')">View details</button>
+        </div>
+      `).join('')}
+    </div>
+  `}`;
+}
+
+function viewProduct(id){
+  state.selectedProduct = id;
+  render();
+}
+
+function productDetailModal(){
+  if(!state.selectedProduct) return '';
+  const p = state.allProducts.find(x=>x.id === state.selectedProduct);
+  if(!p) return '';
+  return `
+  <div class="product-modal show">
+    <div class="product-modal-content">
+      <button class="product-modal-close" onclick="state.selectedProduct=null;render();">✕</button>
+      <div class="product-detail">
+        <div class="product-detail-image">
+          ${isImageUrl(p.image) ? `<img src="${imageSrc(p.image)}" style="width:100%;max-height:250px;object-fit:cover;border-radius:6px;margin-bottom:16px;" onerror="this.style.display='none'">` : p.image}
+        </div>
+        <h2>${p.name}</h2>
+        <div class="stars">${starRating(p.rating)}<span style="margin-left:4px;font-weight:600;">${p.rating}</span><span class="reviews-count">(${p.reviews} reviews)</span></div>
+        <div class="product-detail-price">${fmt(p.price)}</div>
+        <div>${getStockBadge(p.stock)}</div>
+        <div class="product-detail-desc">${p.desc}</div>
+        <div style="font-size:13px;color:var(--steel);"><strong>Category:</strong> ${p.cat}</div>
+        <div class="product-detail-actions">
+          <button class="btn orange" onclick="addToCart('${p.id}'); state.selectedProduct=null; render();">Add to cart</button>
+          <button class="btn outline" onclick="toggleWishlist('${p.id}');">${state.wishlist.includes(p.id)?'Remove from':'Add to'} wishlist</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function goCart(){
+  if(!state.user){ showToast('Log in to view your cart.', 'error'); setView('auth'); return; }
+  setView('cart');
+}
+
+async function addToCart(id){
+  if(!state.user){ showToast('Log in to add items to your cart.', 'error'); setView('auth'); return; }
+  const product = state.allProducts.find(p=>p.id===id);
+  if(!product){ showToast('Product not found.', 'error'); return; }
+  const existing = state.cart.find(i=>i.id===id);
+  let cart;
+  if(existing){ cart = state.cart.map(i=>i.id===id?{...i,qty:i.qty+1}:i); }
+  else{ cart = [...state.cart, {id,qty:1}]; }
+  await saveCart(state.user.email, cart);
+  showToast(`${product.name} added to cart.`, 'success');
+}
+
+function toggleWishlist(id){
+  if(state.wishlist.includes(id)){
+    state.wishlist = state.wishlist.filter(w=>w!==id);
+  } else {
+    state.wishlist = [...state.wishlist, id];
+  }
+  render();
+}
+
+async function changeQty(id, delta){
+  let cart = state.cart.map(i=>i.id===id?{...i,qty:i.qty+delta}:i).filter(i=>i.qty>0);
+  await saveCart(state.user.email, cart);
+  render();
+}
+
+function cartView(){
+  if(state.cart.length===0){
+    return `<h2 class="section-title">Your cart</h2><div class="empty">Cart's empty. <a onclick="setView('products')" style="color:var(--orange-dark);cursor:pointer;">Go browse products</a>.</div>`;
+  }
+  return `
+  <h2 class="section-title">Your cart</h2>
+  <div class="card">
+    ${state.cart.map(item=>{
+      const p = state.allProducts.find(x=>x.id===item.id);
+      return `
+      <div class="cart-row">
+        <div>
+          <div style="font-weight:600;">${p.name}</div>
+          <div style="font-size:13px;color:var(--steel);">${fmt(p.price)} each</div>
+        </div>
+        <div class="qty-controls">
+          <button onclick="changeQty('${p.id}',-1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty('${p.id}',1)">+</button>
+        </div>
+        <div style="font-weight:600;min-width:90px;text-align:right;">${fmt(p.price*item.qty)}</div>
+      </div>`;
+    }).join('')}
+    <div class="totals-row grand">
+      <span>Total</span><span>${fmt(cartTotal())}</span>
+    </div>
+  </div>
+  <div style="margin-top:18px;text-align:right;">
+    <button class="btn orange" onclick="setView('checkout')">Proceed to checkout</button>
+  </div>`;
+}
+
+function checkoutView(){
+  const a = state.checkoutAddress;
+  return `
+  <h2 class="section-title">Checkout</h2>
+  <div class="card auth-box">
+    ${toastHtml()}
+    <label>Full name</label>
+    <input id="ck-name" value="${a.name}" placeholder="Your name">
+    <label>Phone</label>
+    <input id="ck-phone" value="${a.phone}" placeholder="03xx-xxxxxxx" type="tel">
+    <label>Delivery address</label>
+    <input id="ck-address" value="${a.address}" placeholder="House, street, area">
+    <label>City</label>
+    <input id="ck-city" value="${a.city}" placeholder="City">
+    <button class="btn orange" style="width:100%;" onclick="submitCheckout()">Continue to payment</button>
+  </div>`;
+}
+
+function submitCheckout(){
+  const name = document.getElementById('ck-name').value.trim();
+  const phone = document.getElementById('ck-phone').value.trim();
+  const address = document.getElementById('ck-address').value.trim();
+  const city = document.getElementById('ck-city').value.trim();
+  
+  if(!validateName(name)){ showToast('Please enter a valid name.', 'error'); return; }
+  if(!validatePhone(phone)){ showToast('Please enter a valid Pakistan phone number (03xx-xxxxxxx).', 'error'); return; }
+  if(!address.length >= 5){ showToast('Please enter a complete delivery address.', 'error'); return; }
+  if(!city){ showToast('Please enter your city.', 'error'); return; }
+  
+  state.checkoutAddress = {name,phone,address,city};
+  setView('payment');
+}
+
+function paymentView(){
+  return `
+  <h2 class="section-title">Payment</h2>
+  <div class="card auth-box">
+    <div class="totals-row grand" style="margin-bottom:16px;">
+      <span>Amount to pay</span><span>${fmt(cartTotal())}</span>
+    </div>
+    <div class="pay-methods">
+      <label class="method ${state.payMethod==='cod'?'active':''}" onclick="setPayMethod('cod')">
+        <input type="radio" name="pay" ${state.payMethod==='cod'?'checked':''}> Cash on delivery
+      </label>
+      <label class="method ${state.payMethod==='card'?'active':''}" onclick="setPayMethod('card')">
+        <input type="radio" name="pay" ${state.payMethod==='card'?'checked':''}> Card
+      </label>
+    </div>
+    ${state.payMethod==='card' ? `
+      <label>Card number</label>
+      <input placeholder="4242 4242 4242 4242" maxlength="19">
+      <label>Expiry / CVC</label>
+      <input placeholder="MM/YY  CVC">
+    ` : `<p class="subtle" style="margin-left:0;">Pay in cash when your order arrives.</p>`}
+    <button class="btn orange" style="width:100%;" onclick="placeOrder()">Pay & place order</button>
+  </div>`;
+}
+function setPayMethod(m){ state.payMethod = m; render(); }
+
+async function placeOrder(){
+  const order = {
+    id: 'ORD-' + Date.now().toString().slice(-6),
+    customerEmail: state.user.email,
+    customerName: state.checkoutAddress.name,
+    items: state.cart.map(i=>{
+      const p = state.allProducts.find(x=>x.id===i.id);
+      return {name:p.name, qty:i.qty, price:p.price};
+    }),
+    total: cartTotal(),
+    address: state.checkoutAddress,
+    payMethod: state.payMethod,
+    status: 'placed',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  const orders = await getOrders();
+  orders.push(order);
+  await saveOrders(orders);
+  await saveCart(state.user.email, []);
+  state.lastOrderId = order.id;
+  state.checkoutAddress = {name:'',phone:'',address:'',city:''};
+  state.payMethod = 'cod';
+  setView('confirmation');
+}
+
+function confirmationView(){
+  return `
+  <div class="card confirm-box">
+    <div class="stamp-big">&#10003;</div>
+    <h2>Order placed</h2>
+    <p class="subtle" style="margin-left:0;">Order ${state.lastOrderId} is confirmed. The seller will ship it soon.</p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;">
+      <button class="btn outline" onclick="setView('products')">Keep shopping</button>
+      <button class="btn orange" onclick="setView('myorders')">Track my orders</button>
+    </div>
+  </div>`;
+}
+
+function statusStage(status){
+  const stages = ['placed','shipped','delivered'];
+  const idx = stages.indexOf(status);
+  const icons = {placed:'&#128203;', shipped:'&#128666;', delivered:'&#127968;'};
+  const labels = {placed:'Order placed', shipped:'Shipped', delivered:'Delivered'};
+  return `
+  <div class="ticket">
+    ${stages.map((s,i)=>`
+      <div class="stage">
+        <div class="stamp ${i<idx?'done':i===idx?'current':''}">${i<=idx?icons[s]:''}</div>
+        <div class="stage-label">${labels[s]}</div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+async function markReceived(orderId){
+  const orders = await getOrders();
+  const updated = orders.map(o=>o.id===orderId?{...o,status:'delivered'}:o);
+  await saveOrders(updated);
+  render();
+}
+
+function myOrdersView(){
+  const mine = state.orders.filter(o=>o.customerEmail===state.user.email).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+  if(mine.length===0){
+    return `<h2 class="section-title">My orders</h2><div class="empty">No orders yet. <a onclick="setView('products')" style="color:var(--orange-dark);cursor:pointer;">Start shopping</a>.</div>`;
+  }
+  return `
+  <h2 class="section-title">My orders</h2>
+  ${mine.map(o=>`
+    <div class="order-card">
+      <div class="order-head">
+        <span>${o.id} &middot; ${new Date(o.createdAt).toLocaleDateString()}</span>
+        <span class="badge ${o.status}">${o.status}</span>
+      </div>
+      ${o.items.map(it=>`<div style="font-size:14px;display:flex;justify-content:space-between;padding:2px 0;"><span>${it.name} x${it.qty}</span><span>${fmt(it.price*it.qty)}</span></div>`).join('')}
+      <div class="totals-row grand"><span>Total</span><span>${fmt(o.total)}</span></div>
+      ${statusStage(o.status)}
+      ${o.status==='shipped' ? `<div style="text-align:right;margin-top:10px;"><button class="btn orange small" onclick="markReceived('${o.id}')">Mark as received</button></div>` : ''}
+    </div>
+  `).join('')}`;
+}
+
+function sellerLoginView(){
+  return `
+  <h2 class="section-title">Seller login</h2>
+  <div class="card auth-box">
+    <label>Email</label>
+    <input id="s-email" placeholder="seller@ironmart.com">
+    <label>Password</label>
+    <input id="s-pass" type="password" placeholder="Password">
+    <button class="btn orange" style="width:100%;" onclick="sellerLogin()">Login</button>
+    <p class="subtle" style="margin-left:0;margin-top:10px;">Demo: seller@ironmart.com / seller123</p>
+  </div>`;
+}
+
+function sellerLogin(){
+  const email = document.getElementById('s-email').value.trim();
+  const pass = document.getElementById('s-pass').value;
+  if(email===SELLER.email && pass===SELLER.password){
+    state.isSeller = true;
+    showToast('Seller login successful.', 'success');
+    setView('sellerdash');
+  } else {
+    showToast('Incorrect seller credentials.', 'error');
+  }
+}
+
+async function markShipped(orderId){
+  const orders = await getOrders();
+  const updated = orders.map(o=>o.id===orderId?{...o,status:'shipped'}:o);
+  await saveOrders(updated);
+  render();
+}
+
+function sellerDashView(){
+  const all = [...state.orders].sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+  if(all.length===0){
+    return `<h2 class="section-title">Incoming orders</h2><div class="empty">No orders yet.</div>`;
+  }
+  return `
+  <h2 class="section-title">Incoming orders</h2>
+  <p class="subtle">Ship placed orders, and track delivery status.</p>
+  ${all.map(o=>`
+    <div class="order-card">
+      <div class="order-head">
+        <span>${o.id} &middot; ${o.customerName} &middot; ${new Date(o.createdAt).toLocaleDateString()}</span>
+        <span class="badge ${o.status}">${o.status}</span>
+      </div>
+      ${o.items.map(it=>`<div style="font-size:14px;display:flex;justify-content:space-between;padding:2px 0;"><span>${it.name} x${it.qty}</span><span>${fmt(it.price*it.qty)}</span></div>`).join('')}
+      <div class="totals-row grand"><span>Total</span><span>${fmt(o.total)}</span></div>
+      <div style="font-size:13px;color:var(--steel);margin-top:8px;">Deliver to: ${o.address.address}, ${o.address.city} &middot; ${o.address.phone} &middot; Pay: ${o.payMethod==='cod'?'Cash on delivery':'Card'}</div>
+      ${o.status==='placed' ? `<div style="text-align:right;margin-top:10px;"><button class="btn orange small" onclick="markShipped('${o.id}')">Mark as shipped</button></div>` : ''}
+    </div>
+  `).join('')}`;
+}
+
+function authView(){
+  if(state.authMode==='signup'){
+    return `
+    <h2 class="section-title">Create account</h2>
+    <div class="card auth-box">
+      ${toastHtml()}
+      <label>Full name</label>
+      <input id="a-name" placeholder="Your full name" type="text">
+      <label>Email</label>
+      <input id="a-email" placeholder="name@example.com" type="email">
+      <label>Password</label>
+      <input id="a-pass" type="password" placeholder="At least 6 characters">
+      <button class="btn orange" style="width:100%;" onclick="signup()">Sign up</button>
+      <div class="switch-line">Already have an account? <a onclick="state.authMode='login';render()">Log in</a></div>
+    </div>`;
+  }
+  return `
+  <h2 class="section-title">Log in</h2>
+  <div class="card auth-box">
+    ${toastHtml()}
+    <label>Email</label>
+    <input id="a-email" placeholder="name@example.com" type="email">
+    <label>Password</label>
+    <input id="a-pass" type="password" placeholder="Password">
+    <button class="btn orange" style="width:100%;" onclick="login()">Log in</button>
+    <div class="switch-line">New here? <a onclick="state.authMode='signup';render()">Create an account</a></div>
+    <div class="switch-line" style="margin-top:20px;font-size:12px;border-top:1px solid var(--border);padding-top:14px;"><strong>Demo credentials:</strong><br>Email: demo@example.com<br>Password: demo123</div>
+  </div>`;
+}
+
+function adminLoginView(){
+  return `
+  <h2 class="section-title">Admin Login</h2>
+  <div class="card admin-login">
+    ${toastHtml()}
+    <label>Admin Password</label>
+    <input id="admin-pass" type="password" placeholder="Enter admin password">
+    <button class="btn orange" style="width:100%;" onclick="loginAdmin()">Access Admin Panel</button>
+    <div class="switch-line" style="margin-top:20px;font-size:12px;"><strong>Demo Password:</strong> admin123</div>
+  </div>`;
+}
+
+function adminPanelView(){
+  const categories = ['Hand Tools', 'Power Tools', 'Plumbing', 'Paint', 'Fasteners', 'Tools', 'Electrical', 'Safety', 'Garden', 'Building Materials'];
+  return `
+  <h2 class="section-title">Admin Panel - Manage Products</h2>
+  <div class="admin-panel">
+    <div class="admin-form">
+      <h3 style="margin-bottom:16px;">Add/Edit Product</h3>
+      ${toastHtml()}
+      <label>Product Name *</label>
+      <input id="ap-name" placeholder="e.g. Screwdriver Set">
+      <label>Price (Rs.) *</label>
+      <input id="ap-price" type="number" placeholder="e.g. 850">
+      <div class="form-row">
+        <div><label>Category *</label>
+        <select id="ap-cat">
+          <option value="">Select category</option>
+          ${categories.map(c=>`<option value="${c}">${c}</option>`).join('')}
+        </select></div>
+        <div><label>Stock Quantity *</label>
+        <input id="ap-stock" type="number" placeholder="e.g. 50"></div>
+      </div>
+      <div class="form-row">
+        <div><label>Rating (0-5) *</label>
+        <input id="ap-rating" type="number" min="0" max="5" step="0.1" value="4.5"></div>
+        <div><label>Reviews Count *</label>
+        <input id="ap-reviews" type="number" placeholder="e.g. 15"></div>
+      </div>
+      <label>Description *</label>
+      <textarea id="ap-desc" placeholder="Product description..." style="width:100%;min-height:80px;padding:10px;border:1px solid var(--border);border-radius:4px;font-family:Inter,sans-serif;font-size:14px;margin-bottom:12px;"></textarea>
+      <label>Emoji Icon or Image URL *</label>
+      <input id="ap-image" placeholder="Paste emoji (🔧) or image URL (https://...)"
+      >
+      <div style="display:flex;gap:8px;">
+        <button id="ap-submit" class="btn orange" style="flex:1;" onclick="addProduct()">Add Product</button>
+        ${state.editingProduct ? `<button class="btn outline" style="flex:1;" onclick="cancelEdit()">Cancel</button>` : ''}
+      </div>
+    </div>
+    <div class="admin-products">
+      <h3 style="margin-bottom:16px;">Products (${state.allProducts.length})</h3>
+      <div style="max-height:500px;overflow-y:auto;">
+        ${state.allProducts.length === 0 ? `
+          <div class="empty" style="padding:40px 20px;text-align:center;">No products yet.</div>
+        ` : `
+          ${state.allProducts.map(p=>`
+            <div class="admin-product-row">
+              <div class="admin-product-info">
+                <div class="admin-product-name">${isImageUrl(p.image) ? `<img src="${imageSrc(p.image)}" style="width:24px;height:24px;object-fit:cover;border-radius:2px;vertical-align:middle;margin-right:6px;">` : `<span>${p.image}</span>`} ${p.name}</div>
+                <div class="admin-product-meta">Rs. ${fmt(p.price)} | ${p.cat} | Stock: ${p.stock}</div>
+              </div>
+              <div class="admin-actions">
+                <button class="btn small small-admin" onclick="editProduct('${p.id}')">Edit</button>
+                <button class="btn small small-admin" style="background:#c33;border-color:#c33;" onclick="deleteProduct('${p.id}')">Delete</button>
+              </div>
+            </div>
+          `).join('')}
+        `}
+      </div>
+    </div>
+  </div>`;
+}
+
+async function signup(){
+  const name = document.getElementById('a-name').value.trim();
+  const email = document.getElementById('a-email').value.trim().toLowerCase();
+  const pass = document.getElementById('a-pass').value;
+  
+  if(!validateName(name)){ showToast('Name must be at least 2 characters.', 'error'); return; }
+  if(!validateEmail(email)){ showToast('Please enter a valid email address.', 'error'); return; }
+  if(!validatePassword(pass)){ showToast('Password must be at least 6 characters.', 'error'); return; }
+  
+  const users = await getUsers();
+  if(users[email]){ showToast('An account with this email already exists.', 'error'); return; }
+  
+  users[email] = {name, email, password:pass};
+  await saveUsers(users);
+  state.user = {name, email};
+  state.cart = await getCart(email);
+  state.orders = await getOrders();
+  showToast(`Welcome, ${name}!`, 'success');
+  setView('products');
+}
+
+async function login(){
+  const email = document.getElementById('a-email').value.trim().toLowerCase();
+  const pass = document.getElementById('a-pass').value;
+  
+  if(!validateEmail(email)){ showToast('Please enter a valid email address.', 'error'); return; }
+  if(!pass){ showToast('Please enter your password.', 'error'); return; }
+  
+  const users = await getUsers();
+  const u = users[email];
+  if(!u || u.password!==pass){ showToast('Incorrect email or password.', 'error'); return; }
+  
+  state.user = {name:u.name, email:u.email};
+  state.cart = await getCart(email);
+  state.orders = await getOrders();
+  showToast(`Welcome back, ${u.name}!`, 'success');
+  setView('products');
+}
+
+function logout(){
+  state.user = null;
+  state.isSeller = false;
+  state.cart = [];
+  state.searchQuery = '';
+  state.selectedCategory = 'all';
+  state.selectedProduct = null;
+  setView('products');
+}
+
+function footer(){
+  return `
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>About ForgeX</h3>
+        <p>Your trusted hardware and tools supplier since 2020. Quality products for professionals and DIY enthusiasts.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <a onclick="state.user ? setView('myorders') : setView('auth')">My Orders</a>
+      </div>
+      <div class="footer-col">
+        <h3>Customer Support</h3>
+        <p>Email: support@ironmart.com</p>
+        <p>Phone: +92-300-1234567</p>
+        <p>Hours: Mon-Fri 9AM-6PM</p>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <a onclick="alert('Privacy Policy coming soon')">Privacy Policy</a>
+        <a onclick="alert('Terms & Conditions coming soon')">Terms & Conditions</a>
+        <a onclick="alert('Contact us at support@ironmart.com')">Contact Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ForgeX. All rights reserved. Pro Grade Hardware for every job site.</p>
+    </div>
+  </footer>`;
+}
+
+function render(){
+  let body;
+  if(state.isAdmin && state.view==='admin') body = adminPanelView();
+  else if(state.view==='adminlogin') body = adminLoginView();
+  else if(state.view==='sellerlogin') body = sellerLoginView();
+  else if(state.isSeller && state.view==='sellerdash') body = sellerDashView();
+  else if(state.view==='auth') body = authView();
+  else if(state.view==='cart') body = cartView();
+  else if(state.view==='checkout') body = checkoutView();
+  else if(state.view==='payment') body = paymentView();
+  else if(state.view==='confirmation') body = confirmationView();
+  else if(state.view==='myorders') body = myOrdersView();
+  else body = productsView();
+
+  document.getElementById('app').innerHTML = `
+    ${header()}
+    <main>${body}</main>
+    ${productDetailModal()}
+    ${roleFooter()}
+    ${footer()}
+  `;
+  state.toast = null;
+}
+
+(async function init(){
+  // Pre-populate demo user
+  const users = await getUsers();
+  if(!users['demo@example.com']){
+    users['demo@example.com'] = {name:'Demo User', email:'demo@example.com', password:'demo123'};
+    await saveUsers(users);
+  }
+  state.orders = await getOrders();
+  state.allProducts = await loadProducts();
+  render();
+})();
+</script>
+</body>
+</html>
