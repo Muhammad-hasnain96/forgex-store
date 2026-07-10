@@ -13,7 +13,7 @@ export default function ProductImage({
   alt,
   className = "w-full h-full object-cover rounded-lg",
   emojiClassName = "text-6xl",
-  fallback = "📦",
+  fallback = "👗",
 }: ProductImageProps) {
   if (isImageUrl(image)) {
     return (

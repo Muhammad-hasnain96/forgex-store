@@ -112,10 +112,10 @@ export default function CheckoutPage() {
           <p className="text-xs text-gray-500 mt-3">Free shipping on orders over {formatPrice(FREE_SHIPPING_MIN)}. Standard delivery {formatPrice(SHIPPING_FEE)}.</p>
           <label className="mt-6">Promo code</label>
           <div className="flex gap-2">
-            <input value={promoCode} onChange={(e) => setPromoCode(e.target.value.toUpperCase())} placeholder="e.g. IRON10" className="mb-0! flex-1" />
+            <input value={promoCode} onChange={(e) => setPromoCode(e.target.value.toUpperCase())} placeholder="e.g. STYLE10" className="mb-0! flex-1" />
             <button type="button" className="btn btn-outline btn-small" onClick={applyPromo}>Apply</button>
           </div>
-          <p className="text-xs text-gray-500 mt-2">Try: IRON10, IRON20, WELCOME</p>
+          <p className="text-xs text-gray-500 mt-2">Try: STYLE10, EID15, WELCOME</p>
         </div>
       </div>
     </>

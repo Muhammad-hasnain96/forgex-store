@@ -12,14 +12,14 @@ export default function Header() {
       style={{ background: "linear-gradient(135deg, var(--steel-dark) 0%, #0f1419 100%)" }}
     >
       <div className="top-strip">
-        <span>Trusted hardware store for Pakistan</span>
+        <span>Pakistani fashion for ladies &amp; gents</span>
         <span>Mon-Sat 9:00 AM - 7:00 PM</span>
         <span>Support: +92-300-1234567</span>
       </div>
       <div className="main-row">
         <Link href="/" className="brand text-[28px] text-[var(--paper)] no-underline tracking-wider flex items-baseline gap-2">
-          <span>Forge<span className="text-[var(--orange)] text-[32px]">X</span></span>
-          <span className="tagline">Pro Grade Hardware</span>
+          <span>Silk<span className="text-[var(--orange)] text-[32px]">Lane</span></span>
+          <span className="tagline">Pakistani Fashion</span>
         </Link>
         <nav className="nav-wrap">
           <Link href="/" className="nav-btn">Shop</Link>

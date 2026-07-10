@@ -9,8 +9,8 @@ import type { AdminStats, Product } from "@/lib/types";
 import ProductImage from "@/components/ProductImage";
 
 const CATEGORIES = [
-  "Hand Tools", "Power Tools", "Plumbing", "Paint", "Fasteners",
-  "Tools", "Electrical", "Safety", "Garden", "Building Materials",
+  "Ladies Shalwar Kameez", "Gents Shalwar Kameez", "Ladies Kurtas", "Gents Kurtas",
+  "Formal & Wedding", "Unstitched Fabric", "Dupatta & Shawl",
 ];
 
 export default function AdminPage() {
@@ -168,7 +168,7 @@ export default function AdminPage() {
             <label>Description</label>
             <textarea name="description" required rows={3} />
             <label>Image URL, emoji, or upload</label>
-            <input name="image" placeholder="🔧 or https://... or /uploads/..." required />
+            <input name="image" placeholder="👗 or https://... or /uploads/..." required />
             <label className="mt-2">Upload image file</label>
             <input type="file" accept="image/*" onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0])} disabled={uploading} />
             {uploading && <p className="text-sm text-gray-500">Uploading...</p>}

@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-oswald" });
 
 export const metadata: Metadata = {
-  title: "ForgeX — Pro Grade Hardware",
-  description: "ForgeX — Pro Grade Hardware for tools, plumbing, paint, and construction supplies.",
+  title: "SilkLane — Pakistani Fashion",
+  description: "SilkLane — Online Pakistani clothing store for ladies and gents shalwar kameez, kurtas, and formal wear.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

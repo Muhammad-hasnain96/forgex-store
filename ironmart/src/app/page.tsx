@@ -15,6 +15,7 @@ export default function ShopPage() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState<ProductSort>("name");
+  const [gender, setGender] = useState<"all" | "ladies" | "gents">("all");
   const [showOutOfStock, setShowOutOfStock] = useState(false);
   const [selected, setSelected] = useState<Product | null>(null);
   const [wishlistIds, setWishlistIds] = useState<Set<string>>(new Set());
@@ -23,6 +24,16 @@ export default function ShopPage() {
   const router = useRouter();
 
   const categories = ["all", ...Array.from(new Set(products.map((p) => p.category))).sort()];
+
+  const visibleProducts = products.filter((p) => {
+    if (gender === "ladies") {
+      return p.category.startsWith("Ladies") || p.category === "Dupatta & Shawl" || p.category === "Unstitched Fabric";
+    }
+    if (gender === "gents") {
+      return p.category.startsWith("Gents");
+    }
+    return true;
+  });
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(search), 300);
@@ -122,20 +133,25 @@ export default function ShopPage() {
         className="text-white text-center p-14 rounded-xl mb-12 shadow-lg"
         style={{ background: "linear-gradient(135deg, var(--steel-dark) 0%, #252d34 50%, var(--orange) 100%)" }}
       >
-        <h1 className="text-4xl mb-3">Built for the job site</h1>
-        <p className="text-lg opacity-90 max-w-xl mx-auto">Tools, plumbing, paint, and fasteners — shipped across Pakistan.</p>
+        <h1 className="text-4xl mb-3">Style that feels like home</h1>
+        <p className="text-lg opacity-90 max-w-xl mx-auto">Ladies &amp; gents shalwar kameez, kurtas, and formal wear — delivered across Pakistan.</p>
       </div>
 
       <h2 className="section-title">Browse products</h2>
-      <p className="subtle">Everything for the workshop, the toolbox, and the job site.</p>
+      <p className="subtle">From daily lawn suits to wedding formals — shop ladies and gents collections.</p>
 
       <div className="flex flex-wrap gap-4 mb-7 bg-white p-5 rounded-xl shadow-sm">
         <input
           className="flex-1 min-w-[200px] mb-0!"
-          placeholder="Search products..."
+          placeholder="Search shalwar kameez, kurtas..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <select className="w-auto min-w-[130px] mb-0!" value={gender} onChange={(e) => setGender(e.target.value as "all" | "ladies" | "gents")}>
+          <option value="all">All collections</option>
+          <option value="ladies">Ladies</option>
+          <option value="gents">Gents</option>
+        </select>
         <select className="w-auto min-w-[150px] mb-0!" value={category} onChange={(e) => setCategory(e.target.value)}>
           {categories.map((c) => (
             <option key={c} value={c}>{c === "all" ? "All categories" : c}</option>
@@ -154,11 +170,11 @@ export default function ShopPage() {
         </label>
       </div>
 
-      {products.length === 0 ? (
+      {visibleProducts.length === 0 ? (
         <div className="empty">No products found.</div>
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-6">
-          {products.map((p) => (
+          {visibleProducts.map((p) => (
             <div
               key={p.id}
               className="bg-white border border-[var(--border)] rounded-xl p-4 flex flex-col gap-3 shadow-sm hover:-translate-y-2 hover:border-[var(--orange)] transition-all"

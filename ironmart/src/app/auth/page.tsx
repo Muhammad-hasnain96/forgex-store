@@ -67,8 +67,8 @@ export default function AuthPage() {
         <div className="text-xs text-center mt-5 pt-4 border-t border-[var(--border)] text-gray-600">
           <strong>Demo accounts</strong><br />
           Customer: demo@example.com / demo123<br />
-          Seller: seller@ironmart.com / seller123<br />
-          Admin: admin@ironmart.com / admin123
+          Seller: seller@silklane.pk / seller123<br />
+          Admin: admin@silklane.pk / admin123
         </div>
       </div>
     </>

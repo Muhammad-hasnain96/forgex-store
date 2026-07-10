@@ -171,10 +171,16 @@ function migrateSchema(database: Database.Database) {
   const promoCount = database.prepare("SELECT COUNT(*) as c FROM promo_codes").get() as { c: number };
   if (promoCount.c === 0) {
     const insert = database.prepare(`INSERT INTO promo_codes (code, discount_percent, active) VALUES (?, ?, 1)`);
-    insert.run("IRON10", 10);
-    insert.run("IRON20", 20);
+    insert.run("STYLE10", 10);
+    insert.run("EID15", 15);
     insert.run("WELCOME", 5);
+  } else {
+    database.prepare("UPDATE promo_codes SET code='STYLE10', discount_percent=10 WHERE code='IRON10'").run();
+    database.prepare("UPDATE promo_codes SET code='EID15', discount_percent=15 WHERE code='IRON20'").run();
   }
+
+  database.prepare("UPDATE users SET email='seller@silklane.pk', name='SilkLane Seller' WHERE email='seller@ironmart.com'").run();
+  database.prepare("UPDATE users SET email='admin@silklane.pk' WHERE email='admin@ironmart.com'").run();
 }
 
 function seedIfEmptySync(database: Database.Database) {
@@ -185,8 +191,8 @@ function seedIfEmptySync(database: Database.Database) {
     INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)
   `);
   insertUser.run("Demo Customer", "demo@example.com", bcrypt.hashSync("demo123", 10), "customer");
-  insertUser.run("ForgeX Seller", "seller@ironmart.com", bcrypt.hashSync("seller123", 10), "seller");
-  insertUser.run("Store Admin", "admin@ironmart.com", bcrypt.hashSync("admin123", 10), "admin");
+  insertUser.run("SilkLane Seller", "seller@silklane.pk", bcrypt.hashSync("seller123", 10), "seller");
+  insertUser.run("Store Admin", "admin@silklane.pk", bcrypt.hashSync("admin123", 10), "admin");
 
   const sellerRow = database
     .prepare("SELECT id FROM users WHERE role = 'seller' ORDER BY id ASC LIMIT 1")
